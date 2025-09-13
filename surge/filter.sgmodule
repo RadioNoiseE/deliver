@@ -1,0 +1,37 @@
+#!name=Filter Chain
+#!desc=Intercepts and modifies network requests and responses.
+
+[Rule]
+IP-CIDR,118.89.204.198/32,REJECT,no-resolve
+IP-CIDR,103.41.167.237/32,REJECT,no-resolve
+IP-CIDR6,2402:4e00:1200:ed00:0:9089:6dac:96b6/128,REJECT,no-resolve
+DOMAIN,mqtt.zhihu.com,REJECT
+DOMAIN,sugar.zhihu.com,REJECT
+DOMAIN,crash2.zhihu.com,REJECT
+DOMAIN,appcloud.zhihu.com,REJECT
+DOMAIN,appcloud2.in.zhihu.com,REJECT
+DOMAIN,duga.zhihu.com,REJECT
+DOMAIN,apm.zhihu.com,REJECT
+URL-REGEX,^https?:\/\/api\.zhihu\.com\/commercial_api,REJECT
+URL-REGEX,^https?:\/\/api\.zhihu\.com\/commercial_api\/answer/\d+/bottom-v2,REJECT
+URL-REGEX,^https?:\/\/api\.zhihu\.com\/message-push\/event,REJECT
+URL-REGEX,^https?:\/\/api\.zhihu\.com\/guide_center\/strategy,REJECT
+URL-REGEX,^https?:\/\/api\.zhihu\.com\/bazaar\/float_window,REJECT
+URL-REGEX,^https?:\/\/api\.zhihu\.com\/metrics\/report,REJECT
+URL-REGEX,^https?:\/\/api\.zhihu\.com\/settings\/new\/notification,REJECT
+URL-REGEX,^https?:\/\/api\.zhihu\.com\/bazaar\/vip_tab\/header,REJECT
+
+[Map Local]
+^https?:\/\/api\.zhihu\.com\/(notifications\/v\d\/count) data="https://cdn.kekkan.org/surge/zhihu.json"
+^https?:\/\/api\.zhihu\.com\/root\/window data="https://cdn.kekkan.org/surge/zhihu.json"
+^https?:\/\/api\.zhihu\.com\/me\/guides data="https://cdn.kekkan.org/surge/zhihu.json"
+^https?:\/\/api\.zhihu\.com\/moments\/recent data="https://cdn.kekkan.org/surge/zhihu.json"
+^https?:\/\/api\.zhihu\.com\/api\/v4\/ecom_data\/config data="https://cdn.kekkan.org/surge/zhihu.json"
+^https?:\/\/api\.zhihu\.com\/feed\/render\/revisit\/tag_config data="https://cdn.kekkan.org/surge/zhihu.json"
+^https?:\/\/api\.zhihu\.com\/content-distribution-core\/sections\/ data="https://cdn.kekkan.org/surge/zhihu.json"
+
+[Script]
+bilibili = type=http-response,pattern=^https?:\/\/app\.bilibili\.com\/x\/v2\/splash\/(show|list),requires-body=1,script-path=https://cdn.kekkan.org/surge/bilibili.js
+
+[MITM]
+hostname = %APPEND% api.zhihu.com,app.bilibili.com
