@@ -10,7 +10,6 @@ DOMAIN,sugar.zhihu.com,REJECT
 DOMAIN,crash2.zhihu.com,REJECT
 DOMAIN,appcloud.zhihu.com,REJECT
 DOMAIN,appcloud2.in.zhihu.com,REJECT
-DOMAIN,duga.zhihu.com,REJECT
 URL-REGEX,^https?:\/\/api\.zhihu\.com\/commercial_api,REJECT
 URL-REGEX,^https?:\/\/api\.zhihu\.com\/commercial_api\/answer/\d+/bottom-v2,REJECT
 URL-REGEX,^https?:\/\/api\.zhihu\.com\/message-push\/event,REJECT
